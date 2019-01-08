@@ -16,4 +16,9 @@ describe User do
    expect(User.authenticate("something@gmail.com", "secret")).to eq (user)
  end
 
+ it "should validate uniqueness of email" do
+   user = User.create(email: "something@gmail.com", password: "somethingspecific")
+   expect(User.create(email: "something@gmail.com", password: "somngspecific").valid?).to eq false
+ end
+
 end

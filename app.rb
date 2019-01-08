@@ -25,12 +25,16 @@ class UserAuth < Sinatra::Base
 
   post '/signup' do
     user = User.create(email: params[:email], password: params[:password])
-    if user
+    if user.valid?
       session[:user_id] = user.id
       redirect '/profile'
     else
-      redirect '/'
+      redirect '/error'
     end
+  end
+
+  get '/error' do
+    erb(:error)
   end
 
   get '/signin' do
